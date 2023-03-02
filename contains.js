@@ -1,18 +1,12 @@
-function contains(object, value) {
-  const keys = Object.keys(object);
-  const vals = Object.values(object);
-  const child = object[keys[0]];
-  // guard case
-  if (vals.includes(value) === true) {
-    console.log(true);
-    return true;
+function contains(obj, value) {
+  const keys = Array.from(Object.keys(obj));
+  for (let i = 0; i < keys.length; i += 1) {
+    if (obj[keys[i]] === value) {
+      return true;
+    }
+    if (typeof obj[keys[i]] === 'object') {
+      return contains(obj[keys[i]], value);
+    }
   }
-
-  // recursive case
-  if (typeof child === 'object') {
-    contains(child, value);
-  } else {
-    console.log(false);
-    return false;
-  }
+  return false;
 }
